@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace用于绑定Dao层接口，需要写全路径包名-->
+<mapper namespace="com.ldk.springdemo.mapper.UserMapper">
+    <!--sql标签用于封装SQL语句，后续通过include标签来引用-->
+    <sql id="Base_Column_List">
+    id, userName, password, createTime, updateTime, status, descriptions,email
+    </sql>
+
+    <!--
+        1、resultMap：用来处理把数据库结果映射到的实体类对象
+        2、id：标示resultMap的唯一性，在同一个xml中不可重复，后续使用esultMap时，便是通过id引用的
+        3、type：对应实体类的别名，在mybatis-config.xml声明的
+    -->
+    <resultMap id="BaseResultMap" type="com.ldk.springdemo.entity.UserEntity">
+        <!--
+            1、id：用于表示对象的唯一性，不一定是数据库里主键
+            2、column：对应数据库中的列名
+            3、property：对应实体类中的属性名
+            4、result：非id的普通属性
+        -->
+        <id column="id" jdbcType="TINYINT" property="id"/>
+        <result column="userName" jdbcType="VARCHAR" property="userName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="descriptions" jdbcType="VARCHAR" property="descriptions"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+    </resultMap>
+
+    <!--通过id进行查找-->
+    <select id="findById" parameterType="Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where status=0 and id = #{id,jdbcType=TINYINT}
+    </select>
+
+</mapper>

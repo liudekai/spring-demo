@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: popuser
+    password: popuser
+    url: jdbc:mysql://10.27.15.131:3306/apicase?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.ldk.springdemo.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
