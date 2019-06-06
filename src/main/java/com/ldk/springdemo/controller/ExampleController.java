@@ -22,7 +22,7 @@ public class ExampleController {
 
     @RequestMapping("/getUser")
     @ResponseBody
-    public UserEntity getUser(@RequestParam(value = "userId",required = true) Long id){
+    public UserEntity getUser(@RequestParam(required = true) Long id){
         return userService.findById(id);
     }
 }
